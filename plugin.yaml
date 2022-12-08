@@ -1,0 +1,4 @@
+name: "my-plugin"
+version: "0.2.6"
+usage: "Awesome plugin"
+description: "Awesome plugin"
