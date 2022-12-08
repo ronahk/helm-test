@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  selek:
+  - apiVersion: v2
+    appVersion: 0.2.6
+    created: "2022-12-08T15:17:22.213170366Z"
+    description: A Helm chart for Kubernetes
+    digest: a669957ec0f0882f35a2d2b6e1a1c7b105788e311151d24e4364865cd0bc59b0
+    name: selek
+    type: application
+    urls:
+    - https://github.com/ronahk/helm-test/releases/download/selek-0.1.1/selek-0.1.1.tgz
+    version: 0.1.1
+generated: "2022-12-08T15:17:21.903156071Z"
