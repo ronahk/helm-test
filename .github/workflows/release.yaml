@@ -36,8 +36,9 @@ jobs:
         with:
           fetch-depth: 0
       - name: Bump versions
-        uses: fregante/setup-git-user@v1
         run: |
+          git config user.email rona@komodor.io
+          git config user.name ronahk
           git fetch --tags
           git checkout main
           sh ./ci/bump-versions.sh
