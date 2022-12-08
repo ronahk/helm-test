@@ -30,18 +30,18 @@ jobs:
   bump_versions:
     runs-on: ubuntu-latest
     needs: pre_release
-      steps:
-        - name: Bump versions
-          uses: actions/checkout@v2
-          uses: fregante/setup-git-user@v1
-          with:
-            fetch-depth: 0
-          run: |
-            git fetch --tags
-            git checkout main
-            sh ./ci/bump-versions.sh
-            git add charts/selek/Chart.yaml
-            git commit -m "CI: Increment chart versions" || echo "Already up-to-date"
-            git push -f || echo "Nothing to push!"
-          env:
-            APP_VERSION: ${{ needs.pre_release.outputs.release_tag }}
+    steps:
+      - name: Bump versions
+        uses: actions/checkout@v2
+        uses: fregante/setup-git-user@v1
+        with:
+          fetch-depth: 0
+        run: |
+          git fetch --tags
+          git checkout main
+          sh ./ci/bump-versions.sh
+          git add charts/selek/Chart.yaml
+          git commit -m "CI: Increment chart versions" || echo "Already up-to-date"
+          git push -f || echo "Nothing to push!"
+        env:
+          APP_VERSION: ${{ needs.pre_release.outputs.release_tag }}
