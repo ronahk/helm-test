@@ -2,6 +2,16 @@ apiVersion: v1
 entries:
   idan:
   - apiVersion: v2
+    appVersion: 1.18.0
+    created: "2022-12-19T08:14:38.879250948Z"
+    description: A Helm chart for Kubernetes
+    digest: 65a4b11f3ba280fb95a618df445fb725095329c05bea3f45bd1a66d20fe57b68
+    name: idan
+    type: application
+    urls:
+    - https://github.com/ronahk/helm-test/releases/download/idan-0.2.1/idan-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
     appVersion: 1.16.0
     created: "2022-12-08T15:21:17.138287712Z"
     description: A Helm chart for Kubernetes
@@ -32,4 +42,4 @@ entries:
     urls:
     - https://github.com/ronahk/helm-test/releases/download/selek-0.1.1/selek-0.1.1.tgz
     version: 0.1.1
-generated: "2022-12-08T15:17:21.903156071Z"
+generated: "2022-12-19T08:14:38.879259348Z"
