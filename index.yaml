@@ -21,6 +21,17 @@ entries:
     urls:
     - https://github.com/ronahk/helm-test/releases/download/idan-0.1.0/idan-0.1.0.tgz
     version: 0.1.0
+  rona:
+  - apiVersion: v2
+    appVersion: 1.17.0
+    created: "2022-12-19T08:58:03.82422139Z"
+    description: A Helm chart for Kubernetes
+    digest: 4941f900edcf5e6a7743bb91ee9f42399e142fba768db5969870e9bea35ba685
+    name: rona
+    type: application
+    urls:
+    - https://github.com/ronahk/helm-test/releases/download/rona-0.1.1/rona-0.1.1.tgz
+    version: 0.1.1
   selek:
   - apiVersion: v2
     appVersion: 0.2.6
@@ -42,4 +53,4 @@ entries:
     urls:
     - https://github.com/ronahk/helm-test/releases/download/selek-0.1.1/selek-0.1.1.tgz
     version: 0.1.1
-generated: "2022-12-19T08:14:38.879259348Z"
+generated: "2022-12-19T08:58:03.82423519Z"
