@@ -11,7 +11,7 @@ on:
 env:
   HELM_REP: helm-test
   GH_OWNER: ronahk
-  CHART_DIR: charts/idan
+  CHART_DIR: charts/rona
 
 jobs:
   publish_chart:
@@ -42,5 +42,3 @@ jobs:
       - name: Index helm chart
         run: |
           ./cr index -o ${{ env.GH_OWNER }} -r ${{ env.HELM_REP }} -c https://${{ env.GH_OWNER }}.github.io/${{ env.HELM_REP }}/ -i index.yaml --push
-      - name: Show index.yaml
-        run: cat index.yaml
