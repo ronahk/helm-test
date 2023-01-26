@@ -37,12 +37,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Update plugin.yaml version
-        uses: jossef/action-set-json-field@v1
+      - name: Update plugin.yaml
+        uses: fjogeleit/yaml-update-action@main
         with:
-          file: plugin.yaml
-          field: version
+          valueFile: plugin.yaml
+          propertyPath: version
           value: ${{ needs.prepare.outputs.version }}
+          commitChange: false
 
       - name: Show file
         run: cat plugin.yaml
