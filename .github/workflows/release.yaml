@@ -2,48 +2,43 @@ name: release
 
 on:
   push:
-    tags:
-      - "v*"
+    branches:
+      - main
 
 jobs:
-  pre_release:
+  prepare:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: Get plugin version
-        id: get_plugin_version
+        id: version
         run: |
-          echo "PLUGIN_VERSION=$(cat plugin.yaml | grep "version" | cut -d '"' -f 2)" >> $GITHUB_OUTPUT
-          echo "PLUGIN_VERSION=$(cat plugin.yaml | grep "version" | cut -d '"' -f 2)" >> $GITHUB_ENV
-      - name: Get tag name
-        id: get_tag_name
-        run: |
-          echo "TAG_NAME=$(echo ${{ github.ref_name }} | cut -d 'v' -f2)" >> $GITHUB_OUTPUT
-          echo "TAG_NAME=$(echo ${{ github.ref_name }} | cut -d 'v' -f2)" >> $GITHUB_ENV
-    outputs:
-      plugin_version: ${{ steps.get_plugin_version.outputs.PLUGIN_VERSION }}
-      release_tag: ${{ steps.get_tag_name.outputs.TAG_NAME }}
+          current=$(cat plugin.yaml | grep "version" | cut -d '"' -f 2)
+          next_version=$(semver-cli inc "minor" $current)
+          echo "next_version is now $next_version"
+          echo "::set-output name=version::$next_version"
 
   bump_versions:
     runs-on: ubuntu-latest
-    needs: pre_release
+    needs: prepare
+    if: needs.prepare.outputs.version
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Bump versions
-        run: |
-          git config user.email rona@komodor.io
-          git config user.name ronahk
-          git fetch --tags
-          git checkout main
-          sh ./ci/bump-versions.sh
-          git add charts/selek/Chart.yaml
-          git commit -m "CI: Increment chart versions" || echo "Already up-to-date"
-          git push -f || echo "Nothing to push!"
-        env:
-          APP_VERSION: ${{ needs.pre_release.outputs.release_tag }}
+
+      - name: Update plugin.yaml version
+        uses: jossef/action-set-json-field@v1
+        with:
+          file: plugin.yaml
+          field: version
+          value: ${{ needs.prepare.outputs.version }}
+
+      - name: Show file
+        run: cat plugin.yaml
