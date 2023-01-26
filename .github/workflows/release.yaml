@@ -11,13 +11,17 @@ jobs:
     outputs:
       version: ${{ steps.version.outputs.version }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v2
         with:
-          fetch-depth: 0
+          go-version: "^1.17"
+
       - name: Get plugin version
         id: version
         run: |
+          echo ${{ secrets.GITHUB_TOKEN }} > token
+          gh auth login --with-token < token
+          go install github.com/davidrjonas/semver-cli@latest
           current=$(cat plugin.yaml | grep "version" | cut -d '"' -f 2)
           next_version=$(semver-cli inc "minor" $current)
           echo "next_version is now $next_version"
